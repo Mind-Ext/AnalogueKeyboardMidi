@@ -1,0 +1,95 @@
+:root {
+    --key-size: 60px;
+}
+
+body {
+    font-family: "Source Sans", sans-serif;
+    margin: 0px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.1rem;
+}
+
+button,
+select {
+    font-size: 0.9rem;
+}
+
+h1 {
+    font-size: 2.2rem;
+    margin: 20px 0px 0px;
+}
+
+.flex-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 16px 0px;
+}
+
+.flex-row {
+    max-width: calc(16*var(--key-size));
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0px
+}
+
+
+.key-row {
+    width: 100%;
+    display: flex;
+}
+
+.key {
+    width: var(--key-size);
+    height: var(--key-size);
+    border: 1px solid black;
+    margin: 4px;
+    text-align: center;
+    position: relative;
+}
+
+.highlight {
+    border-color: red;
+}
+
+.key-fill {
+    background-color: lightgray;
+    height: 0%;
+    width: 100%;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    z-index: -1;
+}
+
+.key-label-letter {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    margin-left: 0.5ch;
+    font-size: 1.1rem;
+}
+
+.key-label-midi {
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    margin-right: 0.5ch;
+    font-size: 0.9rem;
+}
+
+#lastNoteRow {
+    border-top: 1px solid black;
+    padding-top: 16px;
+    grid-template-columns: 1fr;
+}
+
+.white-text {
+    color: white
+}

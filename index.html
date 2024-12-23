@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎵</text></svg>"
+    />
+    <script src="https://analogsense.org/JavaScript-SDK/AnalogSense.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/webmidi@3/dist/iife/webmidi.iife.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/petite-vue@0.4.1/dist/petite-vue.iife.js"></script>
+    <link rel="stylesheet" href="style.css" />
+    <title>Analogue Keyboard Midi</title>
+  </head>
+  <body>
+    <h1>Analogue Keyboard Midi</h1>
+    <div class="flex-container">
+      <div class="flex-row">
+        <div>
+          <span>Keyboard: </span>
+          <span>{{vstore.keyboardName}}</span>
+          <button onclick="doConnect();" v-if="!vstore.connected">
+            Connect
+          </button>
+          <button onclick="doDisconnect();" v-if="vstore.connected">
+            Disconnect
+          </button>
+        </div>
+        <div>
+          <span>MIDI output: </span>
+          <select id="midiOutputSelect" aria-label="Select an output port">
+            <option value="">Select an output port</option>
+          </select>
+        </div>
+      </div>
+      <div class="flex-row">
+        <div>
+          <span>Report interval: </span>
+          <span>{{vstore.reportInterval}} ms</span>
+          <button onclick="calibrate();" v-if="vstore.reportInterval!='?'">
+            Detect
+          </button>
+        </div>
+        <div></div>
+      </div>
+    </div>
+    <div id="keys" class="white-text"></div>
+    <div class="flex-container">
+      <div class="flex-row">
+        <div>
+          <span>Interval between adjacent keys: </span>
+          <span>{{vstore.dCol}}</span>
+          <button onclick="vstore.updateLayout(0,-1,0)">-</button>
+          <button onclick="vstore.updateLayout(0,1,0)">+</button>
+        </div>
+        <div>
+          <span>Transpose: </span>
+          <span>{{vstore.transpose}}</span>
+          <button onclick="vstore.updateLayout(0,0,-1)">-</button>
+          <button onclick="vstore.updateLayout(0,0,1)">+</button>
+          <button onclick="vstore.updateLayout(0,0,-12)">-12</button>
+          <button onclick="vstore.updateLayout(0,0,12)">+12</button>
+        </div>
+      </div>
+      <div class="flex-row">
+        <div>
+          <span>Interval between adjacent rows: </span>
+          <span>{{vstore.dRow}}</span>
+          <button onclick="vstore.updateLayout(-1,0,0)">-</button>
+          <button onclick="vstore.updateLayout(1,0,0)">+</button>
+        </div>
+        <div>
+          <span>Highlight pitch class: </span>
+          <select id="highlightPitchClass">
+            <option value="-1">None</option>
+            <option value="0">0 (C)</option>
+            <option value="1">1 (C#/Db)</option>
+            <option value="2">2 (D)</option>
+            <option value="3">3 (D#/Eb)</option>
+            <option value="4">4 (E)</option>
+            <option value="5">5 (F)</option>
+            <option value="6">6 (F#/Gb)</option>
+            <option value="7">7 (G)</option>
+            <option value="8">8 (G#/Ab)</option>
+            <option value="9">9 (A)</option>
+            <option value="10">10 (A#/Bb)</option>
+            <option value="11">11 (B)</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="flex-row" id="lastNoteRow">
+      <!-- <div>
+          <span>Show last note</span>
+          <input
+            type="checkbox"
+            id="showLastNote"
+            v-model="vstore.showLastNote"
+          />
+        </div> -->
+      <div>
+        <span>Last note: </span>
+        <span v-if="vstore.showLastNote">{{vstore.lastNote}}</span>
+      </div>
+    </div>
+    <img src="https://count.lnfinite.space/page/analogue-keyboard-midi.svg" alt="">
+    <script src="main.js"></script>
+  </body>
+</html>
