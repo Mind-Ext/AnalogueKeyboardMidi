@@ -28,7 +28,7 @@ function initDemo(device) {
 function doDisconnect() {
   const name = analogDevice.getProductName()
   vstore.keyboardName = 'None'
-  vstore.reportInterval = '?'
+  vstore.reportInterval = null
   vstore.connected = false
   analogDevice.forget()
   analogDevice = undefined
@@ -113,7 +113,7 @@ const vstore = PetiteVue.reactive({
   transpose: 0,
   dRow: 1,
   dCol: 4,
-  reportInterval: '?',
+  reportInterval: null,
   showLastNote: true,
   lastNote: 'None',
   updateLayout(ddR, ddC, dTranspose) {
@@ -275,9 +275,9 @@ class KeyState {
         this.queue = []
         if (velocity > this.minVelocity) {
           const attack =
-            (velocity - this.minVelocity) /
+            (Math.min(velocity, this.maxVelocity) - this.minVelocity) /
             (this.maxVelocity - this.minVelocity)
-          const velocityInt = 1 + Math.floor(attack * 127)
+          const velocityInt = Math.ceil(attack * 127)
           const msg = `Note ${keyToMidi[this.name]}, velocity ${velocityInt}`
           this.play(velocityInt)
           this.isOn = true
@@ -368,8 +368,7 @@ const calibration = {
 }
 
 function calibrate() {
-  document.getElementById('keys').classList.add('white-text')
-  vstore.reportInterval = '?'
+  vstore.reportInterval = null
   calibration.reset()
 }
 

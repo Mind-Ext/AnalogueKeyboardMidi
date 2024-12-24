@@ -90,6 +90,28 @@ h1 {
     grid-template-columns: 1fr;
 }
 
-.white-text {
+#keys.white-text {
     color: white
 }
+
+#keys.white-text .key {
+    border-color: black;
+}
+
+footer.flex-row {
+    justify-content: flex-end;
+    position: fixed;
+    bottom: 4px;
+}
+
+footer>a {
+    color: hsl(0 0 33);
+    font-size: 0.9rem;
+}
+
+/* 
+    lightgray = 211 (L=83)
+    darkgray = 169 (L=66)
+    gray = 128 (L=50)
+    dimgray = 105 (L=41)
+ */
